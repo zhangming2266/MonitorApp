@@ -1,0 +1,9 @@
+node_modules/
+build/
+npm-debug.log
+build.zip
+*.psd
+.project
+*.zip
+*.rar
+.idea/
