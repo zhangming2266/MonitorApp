@@ -1,10 +1,8 @@
 module.exports = {
-  plugins: {
-    autoprefixer: {},
-    'postcss-pxtorem': {
-      rootValue: 100,
-      propWhiteList: [],
-      minPixelValue: 2
-    }
-  }
+  parser: 'postcss-less',
+  plugins: [
+    require('autoprefixer')({
+      overrideBrowserslist: ['last 100 version', 'ie > 8']
+    })
+  ]
 }

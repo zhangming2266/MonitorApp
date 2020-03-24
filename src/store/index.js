@@ -1,15 +1,14 @@
 import Vue from 'vue'
-import vuex from 'vuex'
+import Vuex from 'vuex'
+import getters from './getters'
+import admin from './modules/admin'
+Vue.use(Vuex)
 
-/* 引入各部分组件 */
-// import home from '@/store/modules/home'
-import auth from '@/store/modules/auth'
-/* End 引入各部分组件 */
+const store = new Vuex.Store({
+    modules: {
+        admin
+    },
+    getters
+});
 
-Vue.use(vuex)
-
-export default new vuex.Store({
-  modules: {
-    auth
-  }
-})
+export default store
