@@ -12,26 +12,31 @@ module.exports = webpackMerge(baseConfig, {
     optimization: {
         namedChunks: true,
         splitChunks: {
-            chunks: 'all',
+            chunks: 'async',
             cacheGroups: {
                 libs: {
                     name: 'chunk-libs',
                     test: /[\\/]node_modules[\\/]/,
-                    priority: 10,
+                    priority: -10,
                     chunks: 'initial'
                 },
-                elementUI: {
-                    name: 'chunk-elementUI',
-                    priority: 20,
-                    test: /[\\/]node_modules[\\/]_?element-ui(.*)/
-                },
-                commons: {
-                    name: 'chunk-commons',
-                    test: resolve('src/components'),
-                    minChunks: 3,
-                    priority: 5,
+                default: {
+                    minChunks: 2,
+                    priority: -20,
                     reuseExistingChunk: true
                 }
+                // elementUI: {
+                //     name: 'chunk-elementUI',
+                //     priority: 20,
+                //     test: /[\\/]node_modules[\\/]_?element-ui(.*)/
+                // },
+                // commons: {
+                //     name: 'chunk-commons',
+                //     test: resolve('src/components'),
+                //     minChunks: 3,
+                //     priority: 5,
+                //     reuseExistingChunk: true
+                // }
             }
         }
     },
