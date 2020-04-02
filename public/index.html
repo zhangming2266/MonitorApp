@@ -7,25 +7,36 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>H5 vue空白</title>
     <script>
-        if (window["context"] == undefined) {
-            if (!window.location.origin) {
-                window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+        var plusReady = function(callback) {
+            if (window.plus) {
+                callback();
+            } else {
+                document.addEventListener('plusready', callback);
             }
-            window["context"] = location.origin + "/V6.0";
-        }
-        (function(d) {
-            if (navigator.userAgent.indexOf('MSIE 9') === -1) return;
-
-            d.addEventListener('selectionchange', function() {
-                var el = d.activeElement;
-
-                if (el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT')) {
-                    var ev = d.createEvent('CustomEvent');
-                    ev.initCustomEvent('input', true, true, {});
-                    el.dispatchEvent(ev);
+        };
+        plusReady(function() {
+            var firstBack = 0;
+            var handleBack = function() {
+                var now = Date.now || function() {
+                    return new Date().getTime();
+                };
+                //if (location.hash == '#/app/xindex') {
+                if (!firstBack) {
+                    firstBack = now();
+                    plus.nativeUI.toast('再按一次退出应用');
+                    setTimeout(function() {
+                        firstBack = 0;
+                    }, 2000);
+                } else if (now() - firstBack < 2000) {
+                    plus.runtime.quit();
                 }
-            });
-        })();
+                //} else {
+                // console.log(location.hash);
+                //	history.back();
+                //}
+            };
+            plus.key.addEventListener('backbutton', handleBack);
+        });
     </script>
 </head>
 
